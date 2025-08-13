@@ -33,36 +33,86 @@ VALIDATE(){
     fi
 }
 
-dnf module disable nginx -y &>>$LOG_FILE
-VALIDATE $? "Disabling Default Nginx"
+dnf module disable nginx -y
+VALIDATE $? "disabling current module.."
 
-dnf module enable nginx:1.24 -y &>>$LOG_FILE
-VALIDATE $? "Enabling Nginx:1.24"
+dnf module enable nginx:1.24 -y
+VALIDATE $? "enabling 1.24 version module.."
 
-dnf install nginx -y &>>$LOG_FILE
-VALIDATE $? "Installing Nginx"
+dnf install nginx -y
+VALIDATE $? "installing nginx.."
 
-systemctl enable nginx  &>>$LOG_FILE
+systemctl enable nginx 
 systemctl start nginx 
-VALIDATE $? "Starting Nginx"
+VALIDATE $? "starting the system services.."
 
-rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
-VALIDATE $? "Removing default content"
+rm -rf /usr/share/nginx/html/* 
+VALIDATE $? "removing all the data in html file.."
 
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>$LOG_FILE
-VALIDATE $? "Downloading frontend"
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
+VALIDATE $? "downloading the zip file.."
 
 cd /usr/share/nginx/html 
-unzip /tmp/frontend.zip &>>$LOG_FILE
-VALIDATE $? "unzipping frontend"
+unzip /tmp/frontend.zip
+VALIDATE $? "unzipping the file.."
 
-rm -rf /etc/nginx/nginx.conf &>>$LOG_FILE
-VALIDATE $? "Remove default nginx conf"
+rm -rf /etc/nginx/nginx.conf
+VALIDATE $? "removing data in conf file"
 
 cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf
-VALIDATE $? "Copying nginx.conf"
+VALIDATE $? "changing the configuration"
 
 systemctl restart nginx 
-VALIDATE $? "Restarting nginx"
+VALIDATE $? "restarting the nginx service"
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# dnf module disable nginx -y &>>$LOG_FILE
+# VALIDATE $? "module disable"
+
+# dnf module enable nginx:1.24 -y &>>$LOG_FILE
+# VALIDATE $? "module enable"
+
+# dnf install nginx -y &>>$LOG_FILE
+# VALIDATE $? "installing nginx"
+
+# systemctl enable nginx &>>$LOG_FILE
+# systemctl start nginx &>>$LOG_FILE
+# VALIDATE $? "starting system services"
+
+# rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
+# VALIDATE $? "removing the content in html file"
+
+# curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>$LOG_FILE
+# VALIDATE $? "downloading the zip file"
+
+# cd /usr/share/nginx/html 
+# unzip /tmp/frontend.zip &>>$LOG_FILE
+# VALIDATE $? "unzipping the file"
+
+# rm -rf /etc/nginx/nginx.conf &>>$LOG_FILE
+# VALIDATE $? "removing data in conf file"
+
+# cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FILE
+# VALIDATE $? "changing the configuration"
+
+# systemctl restart nginx &>>$LOG_FILE
+# VALIDATE $? "restarting system services"
