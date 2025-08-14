@@ -108,7 +108,7 @@ cd /usr/share/nginx/html
 unzip /tmp/frontend.zip &>>$LOG_FILE
 VALIDATE $? "unzipping the file"
 
-rm -rf /etc/nginx/nginx.conf &>>$LOG_FILE
+rm -rf /etc/nginx/nginx.conf/* &>>$LOG_FILE
 VALIDATE $? "removing data in conf file"
 
 cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FILE
