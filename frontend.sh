@@ -97,6 +97,9 @@ VALIDATE $? "installing nginx"
 rm -rf /etc/nginx/nginx.conf/* &>>$LOG_FILE
 VALIDATE $? "removing data in conf file"
 
+cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FILE
+VALIDATE $? "changing the configuration"
+
 systemctl enable nginx &>>$LOG_FILE
 systemctl start nginx &>>$LOG_FILE
 VALIDATE $? "starting system services"
