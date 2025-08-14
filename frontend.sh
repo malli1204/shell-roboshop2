@@ -52,7 +52,7 @@ VALIDATE $? "removing all the data in html file.."
 curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
 VALIDATE $? "downloading the zip file.."
 
-cd /usr/share/nginx/html 
+cd /usr/share/nginx/html
 unzip /tmp/frontend.zip
 VALIDATE $? "unzipping the file.."
 
